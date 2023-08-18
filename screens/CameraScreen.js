@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Button, Pressable } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Camera, CameraType } from 'expo-camera'
+import { Fontisto } from '@expo/vector-icons'; 
 
 const CameraScreen = () => {
     const [hasPermission, setHasPermission] = useState(false)
@@ -29,9 +30,8 @@ const CameraScreen = () => {
   return (
     <View>
       {hasPermission ? (<Camera style={{width: 400, height: 500 }} ref={cameraRef} type={type}/>) : (<Text>No access to camera</Text>)}
-
       <View style={styles.row}>
-        {capturedPictureUri && (<Image source={{uri: capturedPictureUri}} style={styles.photo}/>)}
+        {capturedPictureUri ? (<Image source={{uri: capturedPictureUri}} style={styles.photo}/>) : (<Fontisto style={styles.rectangle} name="rectangle" size={45} color="white" />)}
         <Pressable style={styles.buttonWrapper} onPress={handleCapture}>
                 <Image style={styles.btn} source={require('../img/buttonIcon.png')}/>
         </Pressable>
@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     photo: {
         width: 50,
         height: 50,
+        marginTop: 35,
+        marginLeft: 10,
+        borderRadius: 5
+    },
+    rectangle: {
         marginTop: 35,
         marginLeft: 10,
         borderRadius: 5
